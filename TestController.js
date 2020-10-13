@@ -1,6 +1,11 @@
+/**
+ * Test controller.
+ * We define all our handlers  in this file.
+ * 
+ */
 const { read, update, remove, create } = require('./lib/store');
 const { parseJsonToObject } = require('./lib/helpers');
-const { token } = require('./lib/auth');
+const { genereteToken } = require('./lib/auth');
 const post = (d) => {
   const { obj } = d;
   const { id } = obj;
@@ -59,16 +64,18 @@ const delet = async (reqD) => {
   }
 };
 
-const getToken = async () => {
+const getToken = async (data) => {
 
   try {
-    const t = await token();
-    // console.log(t)
+    const t1 = await genereteToken();
+     console.log('3-controller');
 
     return {
       statusCode: 200,
       payload: {
-        token: t,
+        token: t1,
+        token2: data.t,
+        token3: data.t2
       }
     };
   }
