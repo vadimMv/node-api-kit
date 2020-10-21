@@ -1,5 +1,5 @@
 const router = require('./lib/router');
-
+const watcher = require('./lib/watcher')
 const http = require('http');
 
 http
@@ -9,3 +9,5 @@ http
     .listen(3000, () => console.log('listing port 3000'));
 
 
+
+    watcher('./.data/orders');
