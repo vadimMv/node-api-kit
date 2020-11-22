@@ -20,7 +20,7 @@ module.exports = async (data) => {
             email: obj.receipt_email,
             price: obj.amount,
         };
-    } catch (error) {
+    } catch (error) { 
         throw new Error("Cant complete payment");
     }
 };

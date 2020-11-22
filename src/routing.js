@@ -6,7 +6,8 @@
 
 const User = require('./controllers/UserController');
 const Middlewares = require('./controllers/Middlewares');
-const {  Order, Shop } =require('./controllers/ShopController');
+const { Order, Shop } = require('./controllers/ShopController');
+const Template = require('./controllers/TampletesController');
 const routes = [
 
     // user api
@@ -38,7 +39,7 @@ const routes = [
         path: 'get',
         middlewares: [Middlewares.Auth],
         handler: User.get
-    } ,
+    },
     {
         method: 'GET',
         path: 'logout',
@@ -50,14 +51,37 @@ const routes = [
         path: 'api/list',
         middlewares: [Middlewares.Auth],
         handler: Shop.list
-    } ,
+    },
     // order api
     {
         method: 'POST',
         path: 'api/order',
         middlewares: [Middlewares.Auth],
         handler: Order.create
+    },
+    //  html templates
+    {
+        method: 'GET',
+        path: '',
+        handler: Template.index
+    },
+    {
+        method: 'GET',
+        path: 'account/create',
+        handler: Template.createUser
+    },
+    {
+        method: 'GET',
+        path: 'account/login',
+        handler: Template.loginUser
+    },
+    {
+        method: 'GET',
+        path: 'account/all',
+        middlewares: [Middlewares.AccssesPage],
+        handler: Template.shopDasbord
     }
+
 ];
 
 module.exports = routes;

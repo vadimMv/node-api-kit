@@ -25,9 +25,10 @@ Order.create = async (input) => {
         receipt_email: input.CurrentUser.email,
         ... await PrepareOrder(input.body),
     };
+    console.log(paymentData);
     const { id, email, price } = await paymentService(paymentData);
     const mailData = {
-        from: '<mailgun@sandboxb8b4854a23ce4dbaacbdb930828a4bad.mailgun.org>',
+        from: 'Pizza@pizza.deliver.com',
         to: email,
         subject: 'Hello from Pizza!!',
         text: `Thank you for buy , you price ${price}`

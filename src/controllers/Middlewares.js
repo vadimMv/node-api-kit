@@ -29,7 +29,26 @@ const Auth = async (input) => {
 
 const verifyToken = token => token.expires > Date.now();
 
+const AccssesPage = async (input) => {
+    const tokenId = input.queryStringObject.tokenId;
+    try {
+        const token = await read({ type: 'tokens', id: tokenId });
+        let isValid = verifyToken(parseJsonToObject(token)) ? true : false;
+
+        if (!isValid) {
+            const error = new Error('Acssess dined..');
+            throw error;
+        }
+        return input;
+    }
+    catch (error) {
+        error.statusCode = 301;
+        error.redirect = 'http://localhost:3000/';
+        throw error;
+    }
+};
 
 module.exports = {
-    Auth
+    Auth,
+    AccssesPage
 }

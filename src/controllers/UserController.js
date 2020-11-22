@@ -72,7 +72,10 @@ const logout = async (input) => {
 
 const login = async (input) => {
   const id = input.queryStringObject.id;
-  const data = input.body;
+  const data = {
+     email : input.queryStringObject.email,
+     password: input.queryStringObject.password
+  };
   try {
     const tokenID = await User.loginUser({ id, data });
     return {
