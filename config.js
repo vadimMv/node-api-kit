@@ -4,7 +4,7 @@ module.exports = {
     mailgun_api_key: 'api:b3792b86067928ea9948f70ba9891e29-ba042922-9d5d034d',
     stripe_host: 'api.stripe.com',
     stripe_path: '/v1/charges',
-    // mailgun_url: 'https://api.mailgun.net/v3/sandboxb8b4854a23ce4dbaacbdb930828a4bad.mailgun.org',
+    stripe_create_token:'/v1/tokens',
     mailgun_host: 'api.mailgun.net',
     mailgun_path: '/v3/sandboxbec3c2352fcc44a2be4c8f0f76b87846.mailgun.org/messages',
     https_port: 443,
