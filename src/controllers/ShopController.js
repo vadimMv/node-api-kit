@@ -3,7 +3,7 @@
  */
 const { read, create } = require('../../lib/store');
 const { parseJsonToObject } = require('../../lib/helpers');
-const paymentService = require('../services/payment');
+const { payment, payTokenCreate } = require('../services/payment');
 const mailService = require('../services/mail');
 const Order = {};
 const Shop = {};
@@ -19,14 +19,20 @@ Shop.list = async () => {
 };
 
 Order.create = async (input) => {
+
+    const token = await payTokenCreate({
+        'card[number]': input.body.number,
+        'card[exp_month]': input.body.expiration.split('-')[1],
+        'card[exp_year]': input.body.expiration.split('-')[0],
+        'card[cvc]': input.body.csv,
+    });
     const paymentData = {
         currency: 'usd',
-        source: 'tok_amex',
+        source: token.id,
         receipt_email: input.CurrentUser.email,
         ... await PrepareOrder(input.body),
     };
-    console.log(paymentData);
-    const { id, email, price } = await paymentService(paymentData);
+    const { id, email, price } = await payment(paymentData);
     const mailData = {
         from: 'Pizza@pizza.deliver.com',
         to: email,
@@ -39,7 +45,7 @@ Order.create = async (input) => {
         statusCode: 200,
         payload: {
             message: "Ok",
-            email:succes
+            email: succes
         }
     };
 };

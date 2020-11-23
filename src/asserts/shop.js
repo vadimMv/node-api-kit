@@ -30,25 +30,28 @@ window.addEventListener('load', async function () {
                 form.elements.name.value = currentRow.name;
                 form.elements.vegan.value = currentRow.isVegan ? 'yes ' : 'no';
                 form.elements.price.value = currentRow.priceUs;
+                document.querySelector('.spinner-border').style.display = "none";
                 document.querySelector('.submit')
-                .addEventListener('click', async function (event) {
-                    const data = {};
-                    for (const el of form.elements) {
-                        data[el.id] = el.value;
-                    }
-                    const requestData = {
-                        uri: 'http://localhost:3000/api/order',
-                        request: {
-                            method: "POST",
-                            body: JSON.stringify(data),
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'tokenID': localStorage.getItem('tokenID'),
-                            }
+                    .addEventListener('click', async function (event) {
+                        document.querySelector('.spinner-border').style.display = "inline-block";
+                        const data = {};
+                        for (const el of form.elements) {
+                            data[el.id] = el.value;
                         }
-                    };
-                    const rez = await CallApi(requestData);
-                });
+                        const requestData = {
+                            uri: 'http://localhost:3000/api/order',
+                            request: {
+                                method: "POST",
+                                body: JSON.stringify(data),
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'tokenID': localStorage.getItem('tokenID'),
+                                }
+                            }
+                        };
+                        const rez = await CallApi(requestData);
+                        document.querySelector('.spinner-border').style.display = "none";
+                    });
             });
         });
     }
