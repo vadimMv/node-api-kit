@@ -1,2 +1,2 @@
 # node-api-kit
-Node.js api kit, without npm dependencies
+Node.js starter kit, without npm dependencies
